@@ -1,36 +1,39 @@
-# 🚀 Screenshot Agent (The Desktop Bulldozer)
+# Screenshot Agent
 
-A zero-bloat, 100% functional TypeScript script to nuke your Mac desktop clutter. 
+this is a simple script to clean the screenshot mess on your mac desktop. 
 
-I built this using **Gemini 1.5 Flash** because it’s insanely fast at processing heavy Retina screenshots, and best of all, it's free on the basic tier lol. 
+i used gemini 1.5 flash because it's fast and free. but i didn't want the ai just moving my files blindly and messing things up. so i made a two-step thing. you get to check a json file before anything actually moves.
 
-Instead of letting an AI blindly move your files and risk yeeting your tax returns into a "Memes" folder, this tool uses a two-step "Human-in-the-Loop" architecture. You get total veto power via a JSON contract before any files actually move.
+## Tech
+* node.js and typescript.
+* pure functional programming. no classes.
+* gemini 1.5 flash.
 
-## ⚙️ The Loadout
+## How it works
 
-* **Engine:** Node.js (v24+ natively supports `.env`), TypeScript (`tsx`).
-* **Paradigm:** Pure functional programming. Zero classes, zero over-engineered abstractions. Just straight execution.
-* **Brain:** `@google/generative-ai` (Gemini 1.5 Flash). 
+1. **plan.ts** it looks at your desktop, turns the screenshots to base64, and asks gemini to group them into generic folders (like Social_Media, Finance, Code_Snippets). it doesn't move files yet. it just makes a `reorganization_plan.json` file.
 
-## 🗺️ The Game Plan
+2. **The JSON check**
+open the json file. this is the ui. if gemini named a folder something stupid, just change the text. if you don't want a file moved at all, change the category to `"SKIP"`.
 
-The system is split into two phases to keep you in control.
+3. **apply.ts**
+this one reads the json file, makes the folders, and actually moves your screenshots.
 
-### 1. The Thinker (`plan.ts`)
-Scans `~/Desktop` for Mac screenshots, converts them to Base64, and asks Gemini to assign them to broad, reusable buckets (e.g., `Finance`, `Code_Snippets`, `Dating_Apps`). 
+## Setup
 
-It does **not** touch your file system yet. It just drops a `reorganization_plan.json` file on your desktop. This is your dry run.
+1. run this:
+`npm install`
 
-### 2. The JSON Contract (God Mode)
-That JSON file is your headless UI. Open it in any text editor and review the AI's logic.
-* AI missed the mark? Rename the category directly in the JSON.
-* Don't want a file moved? Change its value to `"SKIP"`.
+2. make a `.env` file. put your own api key, i'm not giving you mine.
+`GEMINI_API_KEY=your_key_here`
+`GEMINI_MODEL=gemini-1.5-flash`
 
-### 3. The Doer (`apply.ts`)
-Reads your approved JSON contract, automatically creates the necessary directories inside `~/Desktop/Organized_Screenshots/`, and executes the physical file moves. 
+## How to use
 
-## 🛠️ Setup & Config
+generate the plan:
+`npx tsx plan.ts`
 
-1. Install the dependencies:
-   ```bash
-   npm install
+check the `reorganization_plan.json` file on your desktop and fix what you want.
+
+then move the files:
+`npx tsx apply.ts`
