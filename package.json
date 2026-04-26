@@ -1,0 +1,23 @@
+{
+  "name": "screen-shot-agent",
+  "version": "1.0.0",
+  "description": "Mac Screenshot Agent with Gemini vision pipeline",
+  "type": "module",
+  "main": "main.ts",
+  "scripts": {
+    "start": "tsx main.ts",
+    "dev": "tsx watch main.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "tsx": "^4.20.6",
+    "typescript": "^6.0.3"
+  }
+}
