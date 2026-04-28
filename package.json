@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Mac Screenshot Agent with Gemini vision pipeline",
   "type": "module",
-  "main": "main.ts",
+  "main": "agent.ts",
   "scripts": {
-    "start": "tsx main.ts",
-    "dev": "tsx watch main.ts",
+    "start": "tsx agent.ts",
+    "revert": "tsx revert.ts",
     "typecheck": "tsc --noEmit"
   },
   "keywords": [],
